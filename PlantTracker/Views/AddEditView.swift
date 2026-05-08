@@ -7,23 +7,50 @@
 
 import SwiftUI
 
-struct AddView: View {
+struct AddEditView: View {
     @Binding var plant: Plant
     @Environment(\.dismiss) var dismiss
     
 
-    @State var plantImage: String = ""
+    
     @State var plantName: String = ""
+    @State var plantImage: String = ""
     @State var botaName: String = ""
-    @State var catergory: String = ""
-
+    @State var catergory: String = "Fruit"
     @State var sunlight: String = ""
     @State var waterTime: String = ""
     @State var fertilizeSchedue: String = ""
-    
-    @State var status: String = ""
+    @State var status: String = "Healthy"
     @State var journal: String = ""
- 
+//    @State var isWater:Bool = false
+    
+    //call for binding from outside, using _ to get binding form init
+    init(plant: Binding<Plant>){
+        self._plant = plant
+        self._plantName = .init(initialValue: plant.wrappedValue.plantName)
+        self._plantImage = .init(initialValue: plant.wrappedValue.plantImage)
+        self._botaName = .init(initialValue: plant.wrappedValue.botaName)
+        self._catergory = .init(initialValue: plant.wrappedValue.catergory)
+        self._sunlight = .init(initialValue: plant.wrappedValue.sunlight)
+        self._waterTime = .init(initialValue: plant.wrappedValue.waterTime)
+        self._fertilizeSchedue = .init(initialValue: plant.wrappedValue.fertilizeSchedue)
+        self._status = .init(initialValue: plant.wrappedValue.status)
+        self._journal = .init(initialValue: plant.wrappedValue.journal)
+//        self._isWater:Bool = false
+    }
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     var body: some View {
         NavigationStack{

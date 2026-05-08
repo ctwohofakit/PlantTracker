@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct difficultyLevelField: View {
+    
+    @Binding var dlevel: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack{
+            ForEach(1...5, id:\.self){index in
+                Button(action:{
+                    self.dlevel = index
+                }){
+                Image(systemName: index <= dlevel ? "star.fill" : "star")
+                    .foregroundColor(.green)
+//                    .onTapGesture{
+//                        dlevel = index
+            }.buttonStyle(.plain)
+            }
+        }
     }
 }
 
-#Preview {
-    difficultyLevelField()
-}
+
+

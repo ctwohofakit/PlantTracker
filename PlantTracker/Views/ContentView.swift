@@ -12,7 +12,10 @@ struct ContentView: View {
     @State private var plants = getPlants()
     
     @State private var showAddPlant:Bool = false
-    @State private var newPlant = Plant(plantImage: "", plantName: "", botaName: "", catergory: "", sunlight: "", waterTime: "",  fertilizeSchedue: "", status: "", journal: "")
+    @State private var newPlant = Plant(plantName: "", botaName: "", catergory: "", plantImage: "", sunlight: "", waterTime: "",  fertilizeSchedue: "", dlevel: 1, status: "",   note: ""
+                                        
+//    , isWater: false
+    )
     
     var body: some View {
         NavigationStack{
@@ -154,9 +157,9 @@ struct ContentView: View {
                 if(!newPlant.plantName.isEmpty){
                     plants.append(newPlant)
                 }
-                newPlant = Plant(plantImage: "", plantName: "", botaName: "", catergory: "", sunlight: "", waterTime: "", fertilizeSchedue: "", status: "", journal: "")
+                newPlant = Plant(plantName: "", botaName: "", catergory: "", plantImage: "", sunlight: "", waterTime: "", fertilizeSchedue: "", dlevel: 1, status: "", note: "",  )
             }content:{
-                AddView(plant: $newPlant)
+                AddEditView(plant: $newPlant)
             }
         }//end:Navigation
         

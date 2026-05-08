@@ -11,6 +11,12 @@ struct PlantDetailsView: View {
     @Binding var plant: Plant
     
     @State private var showEditPlant: Bool = false
+    var statusColor: Color{
+        switch plant.status{
+        case "Need Care" : return .orange
+        default : return .pink
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading){
@@ -21,7 +27,7 @@ struct PlantDetailsView: View {
                     .ignoresSafeArea()
       
             VStack(alignment: .leading, spacing:8){
-                Spacer().frame(maxHeight: 150)
+                Spacer().frame(maxHeight: 140)
                 
               
                 VStack(alignment: .leading){
@@ -39,6 +45,7 @@ struct PlantDetailsView: View {
                                     Image(systemName: "bookmark.fill")
                                         .foregroundStyle(.blue.opacity(0.8))
                                     Text(plant.catergory)
+
                                 }
                                 
                             }
@@ -78,16 +85,20 @@ struct PlantDetailsView: View {
                             }.padding(5)
                             Spacer()
                             
-                                VStack{
+                                VStack(alignment: .leading){
                                     
                                     HStack{
-                                        Image(systemName: "thermometer.medium")
+                                        Image(systemName: "star.bubble.fill")
                                             .foregroundStyle(Color("dateLabelColor"))
                                         VStack(alignment: .leading){
-                                            Text("Temperature need:")
+                                            Text("Diffulty levels:")
                                                 .font(.subheadline)
                                                 .bold()
-                                            Text(plant.sunlight)
+//                                            ForEach(1...plant.dlevel, id: \.self){_ in
+//                                                Text("star")
+//                                                
+//                                            }
+                                        
                                                 .font(.footnote)
                                         }
                                     }
@@ -99,7 +110,7 @@ struct PlantDetailsView: View {
                                             Text("Fertilize Schedule:")
                                                 .font(.subheadline)
                                                 .bold()
-                                            Text(plant.waterTime)
+                                            Text(plant.fertilizeSchedue)
                                                 .font(.footnote)
                                         }
                                     }
@@ -108,30 +119,35 @@ struct PlantDetailsView: View {
                             }.frame(maxHeight:100)
                             
                         }
-                        VStack(alignment: .leading){
-                            Text("Summary")
-                                .font(.headline)
-                                .padding(.bottom)
-                            Text(plant.catergory)
-                            Button("Edit Book"){
-                                plant.plantName = "New Name Here"
-                            }
-                        }.padding()
-                            .background(.gray.opacity(0.3))
-                            .cornerRadius(10)
-                            Spacer()
                         
+                        Spacer().frame(maxHeight:18)
+                        VStack(alignment: .leading){
+                            HStack{
+                                Image(systemName: "book")
+                                Text("Personal Notes")
+                                    .font(.headline)
+                            }.padding(.bottom, 5)
+                            Text(plant.note)
+                            Spacer()
+                           
+                        }//end of Note
+                        .frame(maxWidth:340, maxHeight:250)
+                        .padding(.top, 10).padding()
+                        .background(.gray.opacity(0.3))
+                        .cornerRadius(10)
+                        Spacer()
+                       
                         
                     }
-                    .frame(width: 360, height: 580)
-                    .border(.blue)
+                    .frame(maxWidth: 360, maxHeight: 580)
+                    
                                 
                             
                     }
-                        .padding()
+//                        .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-                            UnevenRoundedRectangle(topLeadingRadius: 50, topTrailingRadius: 50).fill(.white)
+                            UnevenRoundedRectangle(topLeadingRadius: 90, topTrailingRadius: 90).fill(.white)
                         )
                 
          
@@ -139,7 +155,7 @@ struct PlantDetailsView: View {
                 }//End: mid to end VStack
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea(edges: .bottom)
-            
+                                                   
                 
                
                     VStack{
@@ -155,7 +171,7 @@ struct PlantDetailsView: View {
                                     .font(.title3)
                                     .padding(.horizontal, 20)
                                     .foregroundStyle(.white)
-                                    .background(Color("healthy").opacity(0.7))
+                                    .background(Color(statusColor).opacity(0.7))
                             }.shadow(color: .gray.opacity(0.5), radius: 5, x: 5, y: 5)
                             .offset(y: -510)
                     }//End: image floating vstack
@@ -172,7 +188,7 @@ struct PlantDetailsView: View {
                 }
             
 //            .background(Color("listBackground"))
-                    .navigationTitle("Edit Plant")
+                    .navigationTitle("Plant Details")
                     .navigationBarTitleDisplayMode(.inline)
                         .navigationBarItems(trailing: Button("Edit"){
                             showEditPlant.toggle()
@@ -180,7 +196,7 @@ struct PlantDetailsView: View {
                         .sheet(isPresented: $showEditPlant){
                             
                         }content:{
-                            AddView(plant: $plant)
+                            AddEditView(plant: $plant)
                     }
             
 

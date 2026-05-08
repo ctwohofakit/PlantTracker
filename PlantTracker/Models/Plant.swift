@@ -25,10 +25,11 @@ struct Plant: Identifiable{
     
     
     let id = UUID()
-    var plantImage: String
+   
     var plantName: String
     var botaName: String
     var catergory: String
+    var plantImage: String
 //    var dateJoin: Date
     
 //    var lightNeed: lightSelect
@@ -36,9 +37,10 @@ struct Plant: Identifiable{
     var sunlight: String
     var waterTime: String
     var fertilizeSchedue: String
-    
+    var dlevel: Int
 //    var lastWaterDate: Date
 //    var lastFertilizeDate: Date
     var status: String
-    var journal: String
+    var note: String
+//    var isWater: Bool
 }

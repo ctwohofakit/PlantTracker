@@ -11,6 +11,13 @@ struct PlantListItem: View {
     
     var plant: Plant
     
+    var statusColor: Color{
+        switch plant.status{
+        case "Need Care" : return .orange
+        default : return .pink
+        }
+    }
+    
     var body: some View {
         HStack{
             VStack(alignment: .leading){
@@ -26,10 +33,14 @@ struct PlantListItem: View {
                     //                .padding(10)
                     
                     VStack(alignment: .leading){
-                        Text(plant.plantName)
-                            .font(.title2).bold()
-                        Text(plant.botaName)
-                            .font(.subheadline)
+                       
+                            Text(plant.plantName)
+                                .font(.title2).bold()
+                                .frame(maxWidth: 140)
+                            Text(plant.botaName)
+                                .font(.subheadline)
+                                .frame(maxWidth: 140)
+                        
                         HStack{
                             Image(systemName: "bookmark.fill")
                                 .frame(width:18, height: 18)
@@ -52,16 +63,17 @@ struct PlantListItem: View {
                                 .font(.footnote).bold()
                         }
                     }.padding()
-                        .frame(width:150, height: 120)
+                        .frame(maxWidth:150, maxHeight: 120)
                     
                 }
                 HStack{
                     Text(plant.status)
                         .bold()
-                        .padding(.horizontal, 10)
                         .foregroundStyle(.white)
-                        .background(Color("healthy").opacity(0.7))
-                    Spacer()
+                        .frame(maxWidth: 110)
+                        .background(Color(statusColor).opacity(0.7))
+                        
+                  
                     
                    
             
@@ -76,12 +88,12 @@ struct PlantListItem: View {
 //                        .cornerRadius(10)
 
                 }
-            }.padding(.horizontal)
+            }.padding()
             
             
             
         }
-        .frame(width:320, height: 180)
+        .frame(maxWidth:320, maxHeight: 180)
 //        .background(Color("labelFont"))
         .background(Color.white)
         .cornerRadius(15)
@@ -92,6 +104,6 @@ struct PlantListItem: View {
 
 #Preview {
     PlantListItem(
-        plant: Plant(plantImage:"strawberry", plantName: "Strawberry", botaName: "fun fruit to have", catergory: "Fruit", sunlight:"Full Sun", waterTime: "Weekly", fertilizeSchedue: "", status: "healthy", journal: "this is")
+        plant: Plant(plantName: "Strawberry", botaName: "fun fruit to have", catergory: "Fruit", plantImage:"strawberry", sunlight:"Full Sun", waterTime: "Weekly", fertilizeSchedue: "", dlevel: 2, status: "Need Care", note: "this is")
         )
 }

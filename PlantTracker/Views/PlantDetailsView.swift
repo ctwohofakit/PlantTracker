@@ -94,12 +94,16 @@ struct PlantDetailsView: View {
                                             Text("Diffulty levels:")
                                                 .font(.subheadline)
                                                 .bold()
-//                                            ForEach(1...plant.dlevel, id: \.self){_ in
-//                                                Text("star")
-//                                                
-//                                            }
-                                        
-                                                .font(.footnote)
+                                            
+                                            HStack{
+                                                ForEach(1...plant.dlevel, id: \.self){_ in
+                                                    Image(systemName: "leaf.fill")
+                                                    //
+                                                }
+                                                
+                                            }//end of diaply level
+                                            .font(.footnote)
+                                            
                                         }
                                     }
                                     Spacer()
@@ -121,27 +125,36 @@ struct PlantDetailsView: View {
                         }
                         
                         Spacer().frame(maxHeight:18)
-                        VStack(alignment: .leading){
-                            HStack{
-                                Image(systemName: "book")
-                                Text("Personal Notes")
-                                    .font(.headline)
-                            }.padding(.bottom, 5)
-                            Text(plant.note)
-                            Spacer()
-                           
-                        }//end of Note
-                        .frame(maxWidth:340, maxHeight:250)
-                        .padding(.top, 10).padding()
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(10)
+                        ZStack{
+                            RoundedRectangle(cornerRadius:20)
+                                .fill(Color("background").opacity(0.3))
+                            .frame(maxWidth: 350, maxHeight: 260)
+                            .shadow(color: .black, radius: 10, x: 5, y: 8)
+                            
+                            VStack(alignment: .leading){
+                                HStack{
+                                    Image(systemName: "book")
+                                    Text("Personal Notes")
+                                        .font(.headline)
+                                }.padding(.bottom, 5)
+                                Text(plant.note)
+                                Spacer()
+                                
+                            }//end of Note
+                            
+                            .frame(maxWidth:320, maxHeight:220)
+                            .padding(.top, 10).padding()
+                            .background(.white).opacity(0.8)
+                            .cornerRadius(10)
+                            
+                        }
+                        
                         Spacer()
                        
                         
                     }
                     .frame(maxWidth: 360, maxHeight: 580)
-                    
-                                
+                 
                             
                     }
 //                        .padding()
@@ -191,6 +204,7 @@ struct PlantDetailsView: View {
                     .navigationTitle("Plant Details")
                     .navigationBarTitleDisplayMode(.inline)
                         .navigationBarItems(trailing: Button("Edit"){
+                            Image(systemName: "pencil")
                             showEditPlant.toggle()
                         })
                         .sheet(isPresented: $showEditPlant){

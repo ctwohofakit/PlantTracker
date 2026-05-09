@@ -57,26 +57,26 @@ struct AddEditView: View {
     var body: some View {
         NavigationStack{
             Form{
-                    
+                
                 Section(header:Text("Plant Details")){
                     HStack{
                         TextField("Plant Name", text: $plantName)
                         TextField("|Botanical Name", text: $botaName)
                     }
                     
-                        Picker("Catergory" , selection: $catergory){
-                            Label("Fruit", systemImage: "carrot.fill").tag("Fruit")
-                            Label("Plant", systemImage: "leaf.fill").tag("Plant")
-                            Label("Flower", systemImage: "camera.macro").tag("Flower")
-                        }
+                    Picker("Catergory" , selection: $catergory){
+                        Label("Fruit", systemImage: "carrot.fill").tag("Fruit")
+                        Label("Plant", systemImage: "leaf.fill").tag("Plant")
+                        Label("Flower", systemImage: "camera.macro").tag("Flower")
+                    }
                     //categories selection
-                        Picker("Image" , selection: $plantImage){
-                            Text("Basil").tag("basil")
-                            Text("Strawberry").tag("strawberry")
-                            Text("Thyme").tag("thyme")
-                            Text("blueberry").tag("blueberry")
-                        }
-                    }//end: first section
+                    Picker("Image" , selection: $plantImage){
+                        Text("Basil").tag("basil")
+                        Text("Strawberry").tag("strawberry")
+                        Text("Thyme").tag("thyme")
+                        Text("blueberry").tag("blueberry")
+                    }
+                }//end: first section
                 
                 Section(header:Text("Plant Care Info")){
                     Picker("Sunlight" , selection: $sunlight){
@@ -102,19 +102,21 @@ struct AddEditView: View {
                     
                     Picker("Plant Health Status" , selection: $status){
                         Text("Healthy").tag("Healthy")
-                        Text("Need care").tag("Need care")
+                        Text("Need care").tag("Need Care")
                     }
                     
                 }//end :second section
                 
-                Picker("Difficulty level: ", selection: $dlevel){
-                    Text("1").tag(1)
-                    Text("2").tag(2)
-                    Text("3").tag(3)
-                    Text("4").tag(4)
-                    Text("5").tag(5)
-                }//end: third section
-                
+                //                Picker("Difficulty level: ", selection: $dlevel){
+                //                    Text("1").tag(1)
+                //                    Text("2").tag(2)
+                //                    Text("3").tag(3)
+                //                    Text("4").tag(4)
+                //                    Text("5").tag(5)
+                //                }//end: third section
+                Section(header: Text("difficulty Level")){
+                                     difficultyLevelField(dlevel: $dlevel)
+            }
                 Section(header: Text("Personal Note:")){
                     
                         TextEditor(text: $note)

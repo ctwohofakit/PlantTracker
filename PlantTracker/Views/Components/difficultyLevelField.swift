@@ -23,7 +23,7 @@ struct difficultyLevelField: View {
                     self.dlevel = index
                 }){
                     Image(systemName: index <= dlevel ? "leaf.fill" : "leaf")
-                        .foregroundColor(.green)
+                        .foregroundStyle(Color("background"))
                         .onTapGesture{
                             dlevel = index
                         }.buttonStyle(.plain)

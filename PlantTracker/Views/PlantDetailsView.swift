@@ -64,7 +64,8 @@ struct PlantDetailsView: View {
                                             .font(.subheadline)
                                             .bold()
                                         Text(plant.sunlight)
-                                            .font(.footnote)
+                                            .foregroundStyle(.brown)
+                                            .font(.footnote).bold()
                                         }
                                     }
                                     Spacer()
@@ -103,6 +104,7 @@ struct PlantDetailsView: View {
                                                 
                                             }//end of diaply level
                                             .font(.footnote)
+                                            .foregroundStyle(Color("background"))
                                             
                                         }
                                     }
@@ -204,7 +206,7 @@ struct PlantDetailsView: View {
                     .navigationTitle("Plant Details")
                     .navigationBarTitleDisplayMode(.inline)
                         .navigationBarItems(trailing: Button("Edit"){
-                            Image(systemName: "pencil")
+              
                             showEditPlant.toggle()
                         })
                         .sheet(isPresented: $showEditPlant){

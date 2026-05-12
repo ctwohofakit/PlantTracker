@@ -12,9 +12,12 @@ struct PlantListItem: View {
     var plant: Plant
     
     var statusColor: Color{
-        switch plant.status{
+        switch plant.status.rawValue{
         case "Need Care" : return .orange
-        default : return .pink
+        case "Good" : return .green
+        case "Poor" : return .red
+        case "Healthy" : return .mint
+        default : return .mint
         }
     }
     
@@ -45,7 +48,7 @@ struct PlantListItem: View {
                             Image(systemName: "bookmark.fill")
                                 .frame(width:18, height: 18)
                                 .foregroundStyle(.blue.opacity(0.6))
-                            Text(plant.catergory)
+                            Text(plant.catergory.rawValue)//updated to rawValue
                                 .font(.footnote).bold()
                         }
                         HStack{
@@ -67,7 +70,7 @@ struct PlantListItem: View {
                     
                 }
                 HStack{
-                    Text(plant.status)
+                    Text(plant.status.rawValue)
                         .bold()
                         .foregroundStyle(.white)
                         .frame(maxWidth: 110)
@@ -104,6 +107,6 @@ struct PlantListItem: View {
 
 #Preview {
     PlantListItem(
-        plant: Plant(plantName: "Strawberry", botaName: "fun fruit to have", catergory: "Fruit", plantImage:"strawberry", sunlight:"Full Sun", waterTime: "Weekly", fertilizeSchedue: "", dlevel: 2, status: "Need Care", note: "this is")
+        plant: Plant(plantName: "Strawberry", botaName: "fun fruit to have", catergory: .fruit, plantImage:"strawberry", sunlight:"Full Sun", waterTime: "Weekly", fertilizeSchedue: "", dlevel: 2, status: .needCare, note: "this is", isIndoor: true)
         )
 }

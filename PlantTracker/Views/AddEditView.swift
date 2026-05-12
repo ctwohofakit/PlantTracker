@@ -14,15 +14,16 @@ struct AddEditView: View {
 
     
     @State var plantName: String = ""
-    @State var botaName: String = ""
-    @State var plantImage: String = ""
-    @State var catergory: String = "Fruit"
+    @State var botaName: String = "Botonical Name"
+    @State var plantImage: String = "defaultPlant"
+    @State var catergory: Category = .others
     @State var sunlight: String = "Full Sun"
     @State var waterTime: String = "Weekly"
     @State var fertilizeSchedue: String = "Spring"
     @State var dlevel: Int = 1
-    @State var status: String = "Healthy"
+    @State var status: Status = .healthy
     @State var note: String = ""
+    @State var isInDoor: Bool = false
 //    @State var isWater:Bool = false
     
     //call for binding from outside, using _ to get binding form init
@@ -38,21 +39,10 @@ struct AddEditView: View {
         self._dlevel = .init(initialValue: plant.wrappedValue.dlevel)
         self._status = .init(initialValue: plant.wrappedValue.status)
         self._note = .init(initialValue: plant.wrappedValue.note)
+        self._isInDoor = .init(initialValue: plant.wrappedValue.isIndoor)
 //        self._isWater:Bool = false
     }
         
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     var body: some View {
         NavigationStack{
@@ -65,9 +55,9 @@ struct AddEditView: View {
                     }
                     
                     Picker("Catergory" , selection: $catergory){
-                        Label("Fruit", systemImage: "carrot.fill").tag("Fruit")
-                        Label("Plant", systemImage: "leaf.fill").tag("Plant")
-                        Label("Flower", systemImage: "camera.macro").tag("Flower")
+                        ForEach(Category.allCases, id:\.self){catergory in
+                            Text(catergory.rawValue).tag(catergory)
+                        }
                     }
                     //categories selection
                     Picker("Image" , selection: $plantImage){
@@ -100,9 +90,14 @@ struct AddEditView: View {
                         Text("Winter").tag("Winter")
                     }
                     
+//                    Picker("Plant Health Status" , selection: $status){
+//                        Text("Healthy").tag("Healthy")
+//                        Text("Need Care").tag("Need Care")
+//                    }
                     Picker("Plant Health Status" , selection: $status){
-                        Text("Healthy").tag("Healthy")
-                        Text("Need care").tag("Need Care")
+                        ForEach(Status.allCases, id:\.self){status in
+                            Text(status.rawValue).tag(status)
+                        }
                     }
                     
                 }//end :second section
@@ -135,36 +130,38 @@ struct AddEditView: View {
                 
                 
             }//end form
-            .navigationTitle(plant.plantName.isEmpty ? "Add Plant" : "Edit Plant") // ternary
+            .navigationTitle(plant.plantName.isEmpty ? "Add" : "Edit") // ternary
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                ToolbarItem(placement: .confirmationAction){
-                    Button("Save"){
-                        plant.plantName = plantName
-                        plant.botaName = botaName
-                        plant.catergory = catergory
-                        plant.plantImage = plantImage
-                        plant.sunlight = sunlight
-                        plant.waterTime = waterTime
-                        plant.fertilizeSchedue = fertilizeSchedue
-                        plant.dlevel = dlevel
-                        plant.status = status
-                        plant.note = note
-                        
-  
-                        
-                        dismiss()
-                    }.disabled(plantName.isEmpty)
-                }//MARK: end:tool item
+                    ToolbarItem(placement: .confirmationAction){
+                        Button("Save"){
+                            plant.plantName = plantName
+                            plant.botaName = botaName
+                            plant.catergory = catergory
+                            plant.plantImage = plantImage
+                            plant.sunlight = sunlight
+                            plant.waterTime = waterTime
+                            plant.fertilizeSchedue = fertilizeSchedue
+                            plant.dlevel = dlevel
+                            plant.status = status
+                            plant.note = note
+                            
+                            
+                            dismiss()
+                        }.disabled(plantName.isEmpty)
+                    }//MARK: end: save
+            
+        
                 
-                
-                ToolbarItem(placement: .cancellationAction){
-                    Button("Cancel"){
-                        dismiss()
+                    ToolbarItem(placement: .cancellationAction){
+                        Button("Cancel"){
+                            dismiss()
+                        }
+                      
+                    }//MARK: end: cancel
+                    ToolbarItem(placement: .primaryAction){
+                        InDoorToggle(isInDoor: $isInDoor, size:.subheadline, useAnimation: false)
                     }
-                }//MARK: end:tool item
-                
-                
                     
                 }//MARK: end:tool bar
             

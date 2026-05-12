@@ -28,7 +28,7 @@ struct Plant: Identifiable{
    
     var plantName: String
     var botaName: String
-    var catergory: String
+    var catergory: Category = .others//change to enum
     var plantImage: String
 //    var dateJoin: Date
     
@@ -40,7 +40,17 @@ struct Plant: Identifiable{
     var dlevel: Int
 //    var lastWaterDate: Date
 //    var lastFertilizeDate: Date
-    var status: String
+    
+      
+    var status: Status = .healthy// need to change to enum
     var note: String
-//    var isWater: Bool
+//    var isWater: Bool,
+    
+    
+    var isIndoor: Bool
+    //house.fill is indoor, house is outdoor
+    
+    
+    
+    
 }

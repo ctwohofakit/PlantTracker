@@ -1,23 +1,20 @@
 //
-//  ContentView.swift
+//  Untitled.swift
 //  PlantTracker
 //
-//  Created by Kit Sitou on 5/4/26.
+//  Created by Kit Sitou on 5/10/26.
 //
 
 import SwiftUI
-import SwiftData
 
-struct ContentView: View {
-    @State private var plants = getPlants()
+struct PlantListView: View{
+    @Binding var plants : [Plant]
     
-  
-                                        
-                                        
-//    , isWater: false
+    @State private var showAddPlant:Bool = false
+    @State private var newPlant = Plant(plantName: "", botaName: "", catergory: .others, plantImage: "defaultPlant", sunlight: "", waterTime: "",  fertilizeSchedue: "", dlevel: 1, status: .healthy,   note: "", isIndoor: false)
     
-    
-    var body: some View {/*
+    var body: some View {
+        
         NavigationStack{
             ZStack{
                 Image("backGroundlily")
@@ -157,36 +154,19 @@ struct ContentView: View {
                 if(!newPlant.plantName.isEmpty){
                     plants.append(newPlant)
                 }
-                newPlant = Plant(plantName: "", botaName: "", catergory: "", plantImage: "", sunlight: "", waterTime: "", fertilizeSchedue: "", dlevel: 1, status: "", note: "", isIndoor: false )
+                newPlant = Plant(plantName: "", botaName: "", catergory: .others, plantImage: "", sunlight: "", waterTime: "", fertilizeSchedue: "", dlevel: 1, status: .healthy, note: "", isIndoor: false )
             }content:{
                 AddEditView(plant: $newPlant)
             }
-        }
-        */
-        //end:Navigation
-        TabView{
-            PlantListView(plants: $plants)
-                .tabItem{
-                    Label("Plants", systemImage: "apple.meditate")
-                        
-                }
-            InDoorView(plants:  $plants)
-                .tabItem{
-                    Label("In Door", systemImage: "house.fill")
-                        
-                }
-               
-            
-        }
-            
+        }//end:Navigation
         
         
         
-            
-    }//end: body view
-}//end: all
+    }
+    
+}
+
 
 #Preview {
     ContentView()
-//        .modelContainer(for: Item.self, inMemory: true)
 }

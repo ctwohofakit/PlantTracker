@@ -12,9 +12,12 @@ struct PlantDetailsView: View {
     
     @State private var showEditPlant: Bool = false
     var statusColor: Color{
-        switch plant.status{
+        switch plant.status.rawValue{
         case "Need Care" : return .orange
-        default : return .pink
+        case "Good" : return .green
+        case "Poor" : return .red
+        case "Healthy" : return .mint
+        default : return .mint
         }
     }
     
@@ -27,7 +30,7 @@ struct PlantDetailsView: View {
                     .ignoresSafeArea()
       
             VStack(alignment: .leading, spacing:8){
-                Spacer().frame(maxHeight: 140)
+                Spacer().frame(maxHeight: 160)
                 
               
                 VStack(alignment: .leading){
@@ -35,23 +38,32 @@ struct PlantDetailsView: View {
                     
                     //content start
                     VStack{
-                        Spacer().frame(maxHeight: 70)
+                        Spacer().frame(maxHeight: 50)
                         VStack(alignment: .leading){
+                            
+                            //MARK: top name section
                             HStack{
                                 Text(plant.plantName)
-                                    .font(.title).bold()
+                                    .font(.title2).bold()
                                 Spacer()
-                                HStack{
-                                    Image(systemName: "bookmark.fill")
-                                        .foregroundStyle(.blue.opacity(0.8))
-                                    Text(plant.catergory)
-
-                                }
+                                
+                              
+                                    //MARK: is indoor? icon for animation
+                                    InDoorToggle(isInDoor: $plant.isIndoor)
+                                    .offset(x:15)
+                                
                                 
                             }
-                            Text(plant.botaName)
-                                .font(.subheadline)
                             
+                            //MARK: Catergoory Capsule
+                            HStack{
+                                Text(plant.botaName)
+                                    .font(.subheadline)
+                                ColoredCapsule(text: plant.catergory.rawValue)
+
+                                
+                                
+                            }
                             //schedule info
                             HStack{
                                 VStack{
@@ -122,11 +134,14 @@ struct PlantDetailsView: View {
                                     }
                                    
                                 }.padding(5)
-                            }.frame(maxHeight:100)
+                            }//END: schedule info
+                            .frame(maxHeight:100)
                             
                         }
                         
-                        Spacer().frame(maxHeight:18)
+//                        Spacer().frame(maxHeight:18)
+                        
+                        
                         ZStack{
                             RoundedRectangle(cornerRadius:20)
                                 .fill(Color("background").opacity(0.3))
@@ -181,14 +196,14 @@ struct PlantDetailsView: View {
                             .cornerRadius(15)
                             .overlay(alignment: .topTrailing){
                                 
-                                Text(plant.status)
+                                Text(plant.status.rawValue)
                                     .fontWeight(.bold)
                                     .font(.title3)
                                     .padding(.horizontal, 20)
                                     .foregroundStyle(.white)
                                     .background(Color(statusColor).opacity(0.7))
                             }.shadow(color: .gray.opacity(0.5), radius: 5, x: 5, y: 5)
-                            .offset(y: -510)
+                            .offset(y: -460)
                     }//End: image floating vstack
                 
                 
